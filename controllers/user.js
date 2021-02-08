@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 
@@ -15,7 +14,7 @@ exports.userLogin = (req, res, next) => {
         });
       }
       fetchedUser = user;
-      return bcryptjs.compare(req.body.password, user.password);
+      return req.body.password === user.password;
     })
     .then(result => {
       if (!result) {
@@ -46,26 +45,26 @@ exports.userLogin = (req, res, next) => {
 
 
 exports.createUser = (req, res, next) => {
-  bcryptjs.hash(req.body.password, 10)
-    .then(hash => {
-
+  console.log('req='+JSON.stringify(req))
       const user = new User({
         username: req.body.username,
         userType: req.body.userType,
-        password: hash
+        password: req.body.password
       });
       user.save()
-        .then(result => {
+        .then(result => {          
           res.status(201).json({
             message: '用户创建成功!',
             result: result
+            
           });
-
+          console.log('username'+req.body.username)
         }).catch(err => {
+          console.log(err)
           res.status(500).json({
             message: "注册出错,可能是用户名重复!"
           });
         });
 
-    });
+    
 }
