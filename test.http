@@ -1,4 +1,4 @@
-@url=http://localhost:3000
+@url=http://localhost:3000/api/
 
 ###
 GET {{url}}
@@ -6,7 +6,7 @@ GET {{url}}
 
 ###
 
-POST {{url}} HTTP/1.1
+POST {{url}} signup
 header name: header value
 
 content
