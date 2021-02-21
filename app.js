@@ -3,6 +3,7 @@ const bodyparser = require('body-parser');
 const mongoose = require("mongoose");
 const projectsRouters=require("./routes/projects")
 const  userRouters=require("./routes/user")
+const  rootRouters=require("./routes/root")
 //const  session =require('express-session') 
 const app = express();
 
@@ -38,5 +39,5 @@ app.use((req, res, next) => {
 //app.use(session);
 app.use("/api/project",projectsRouters);
 app.use("/api/user",userRouters);
-
+app.use("/",rootRouters);
 module.exports = app;

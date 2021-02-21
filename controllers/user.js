@@ -62,6 +62,7 @@ exports.createUser = (req, res, next) => {
           });
 
         }).catch(err => {
+          
           res.status(500).json({
             message: "注册出错,可能是用户名重复!"
           });
