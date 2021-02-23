@@ -19,11 +19,11 @@ exports.createProject = (req, res, next) => {
     creator: req.userData.userId,
 
   })
-  project.save();
-  console.log(project);
+  project.save()
+  .then(  
   res.status(201).json({
     message: '项目添加成功!'
-  }).catch(err => {
+  })).catch(err => {
     res.status(500).json({
       message: "项目添加失败!"
     });
