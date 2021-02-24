@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const projectsRouters=require("./routes/projects")
 const  userRouters=require("./routes/user")
 const  rootRouters=require("./routes/root")
+const  gongfalibsRouters=require("./routes/gongfalibs")
+const  uploadRouters=require("./routes/upload")
 //const  session =require('express-session') 
 const app = express();
 
@@ -44,4 +46,6 @@ app.use((req, res, next) => {
 app.use("/api/project",projectsRouters);
 app.use("/api/user",userRouters);
 app.use("/",rootRouters);
+app.use("/api/upload",uploadRouters);
+app.use("/api/gongfalib",gongfalibsRouters);
 module.exports = app;
