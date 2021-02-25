@@ -6,16 +6,15 @@ exports.createGongfalib = (req, res, next) => {
     year: req.body.year,
     name: req.body.name,
     department: req.body.department,
-    writer: req.body.writer,    
-
+    writer: req.body.writer, 
     techField: req.body.techField, 
     attachment:req.body.attachment,
     class: req.body.class,
     summary: req.body.summary,
     createOn: new Date(),
     creator: req.userData.userId,
-
   })
+console.log (gongfalib)
   gongfalib.save()
   .then(  
   res.status(201).json({

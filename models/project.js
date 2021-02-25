@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const projectSchema = mongoose.Schema({
   year: {
-    type: Number,
+    type: String,
     require: true
   },
   name: {

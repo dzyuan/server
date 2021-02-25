@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const gongfalibSchema = mongoose.Schema({
   year: {
-    type: Number,
+    type:String,
     require: true
   },
   name: {
@@ -14,7 +14,7 @@ const gongfalibSchema = mongoose.Schema({
     type: String,
     require: true
   },
-  writers: {
+  writer: {
     type: String,
     require: true
   },
