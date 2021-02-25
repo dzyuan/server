@@ -1,121 +1,117 @@
-const Project = require('../models/project');
+const Gongfalib = require('../models/gongfalib');
 
-exports.createGongfaLib = (req, res, next) => {
-  const project = new Project({
+
+exports.createGongfalib = (req, res, next) => {
+  const gongfalib = new Gongfalib({
     year: req.body.year,
     name: req.body.name,
     department: req.body.department,
-    leader: req.body.leader,
-    startDate: req.body.startDate,
-    completeDate: req.body.completeDate,
-    budget: req.body.budget,
-    techField: req.body.techField,
-    techSource: req.body.techSource,
-    purpose: req.body.purpose,
-    implementation: req.body.implementation,
-    technology: req.body.technology,
-    innovation: req.body.innovation,
+    writer: req.body.writer,    
+
+    techField: req.body.techField, 
+    attachment:req.body.attachment,
+    class: req.body.class,
+    summary: req.body.summary,
     createOn: new Date(),
     creator: req.userData.userId,
 
   })
-  project.save()
+  gongfalib.save()
   .then(  
   res.status(201).json({
-    message: '项目添加成功!'
+    message: '工法添加成功!'
   })).catch(err => {
     res.status(500).json({
-      message: "项目添加失败!"
+      message: "工法添加失败!"
     });
   });
 }
 
-exports.getProject = (req, res, next) => {
-  Project.findById(req.params.id).then(project => {
-    if (project) {
-      res.status(200).json(project);
+exports.getGongfalib = (req, res, next) => {
+  Gongfalib.findById(req.params.id).then(gongfalib=> {
+    if (gongfalib) {
+      res.status(200).json(gongfalib);
     } else {
       res.status(404).json({
-        message: "项目信息不存在!"
+        message: "工法信息不存在!"
       });
     }
   }).catch(err => {
     res.status(500).json({
-      message: "项目获取失败!"
+      message: "工法获取失败!"
     });
   });
 }
 
 
-exports.getProjects = (req, res, next) => {
+exports.getGongfalibs = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const projectQuery = Project.find();
-  let fetchedProjects;
+  const gongfalibQuery = Gongfalib.find();
+  let fetchedGongfalibs;
   if (pageSize && currentPage) {
-    projectQuery
+    gongfalibQuery
       .skip(pageSize * (currentPage - 1))
       .limit(pageSize);
   }
-  projectQuery.then(documents => {
-    fetchedProjects = documents;
-    return Project.countDocuments();
+  gongfalibQuery.then(documents => {
+    fetchedGongfalibs = documents;
+    return Gongfalib.countDocuments();
   }).then(count => {
     res.status(200).json({
       message: '成功发送!',
-      projects: fetchedProjects,
-      projectCount: count
+      gongfalibs: fetchedGongfalibs,
+      gongfalibCount: count
     });
   }).catch(err => {
     res.status(500).json({
-      message: "项目获取失败!"
+      message: "工法获取失败!"
     });
   });
 }
 
 
 
-exports.updateProject = (req, res, next) => {
-  const project = new Project({
+exports.updateGongfalib = (req, res, next) => {
+  const gongfalib = new Gongfalib({
     _id: req.body._id,
+    year: req.body.year,
     name: req.body.name,
     department: req.body.department,
-    leader: req.body.leader,
-    startDate: req.body.startDate,
-    completeDate: req.body.completeDate,
-    budget: req.body.budget,
-    techField: req.body.techField,
-    techSource: req.body.techSource,
-    purpose: req.body.purpose,
-    implementation: req.body.implementation,
-    technology: req.body.technology,
-    innovation: req.body.innovation,   
-    modifyOn: new Date()
+    writer: req.body.writer,  
+    techField: req.body.techField, 
+    attachment:req.body.attachment,
+    class: req.body.class,
+    summary: req.body.summary,
+    createOn: new Date(),
+    creator: req.userData.userId,
+    modifyOn: new Date(),
+    
   })
-  Project.updateOne({
+  Gongfalib.updateOne({
     _id: req.params.id,
     creator: req.userData.userId
-  }, project).then(result => {
+  }, gongfalib).then(result => {
     console.log(result);
     if (result.n > 0) {
       res.status(200).json({
-        message: "更新成功!"
+        message: "工法更新成功!"
       })
     } else {
       res.status(401).json({
-        message: "更新失败!"
+        message: "工法更新失败!"
       })
     }
   }).catch(error => {
     res.status(500).json({
-      message: "项目更新失败!"
+      message: "工法更新失败!"
     });
   });
 }
 
 
-exports.deleteProject = (req, res, next) => {
-  Project.deleteOne({
+exports.deleteGongfalib = (req, res, next) => {
+  Gongfalib.deleteOne({
       _id: req.params.id,
       creator: req.userData.userId
     })
@@ -123,75 +119,21 @@ exports.deleteProject = (req, res, next) => {
       console.log(result);
       if (result.n > 0) {
         res.status(200).json({
-          message: "删除成功!"
+          message: "工法删除成功!"
         })
       } else {
         res.status(401).json({
-          message: "删除失败!"
+          message: "工法删除失败!"
         })
       }
 
     })
     .catch(err => {
       res.status(500).json({
-        message: "项目删除失败!"
+        message: "工法删除失败!"
       });
     })
 }
 
 
-
-exports.createComment = (req, res, next) => {
-  const id = req.params.id;
-  Project.update({
-    _id : id
-  }, {
-   '$push': {
-      comments:{
-      username: req.body.username,
-      commentContent: req.body.comment,
-      createOn: new Date()}
-    }
-  },function(err, data) {
-    if (err) {
-      console.log("pusherr"+err);
-    } else {
-      console.log(data);
-    }
-  })
-
-  res.status(201).json({
-    message: '评审意见添加成功!'
-  }).catch(err => {
-    res.status(500).json({
-      message: "评审意见添加失败!"
-    });
-  });
-}
-
-exports.submitProject = (req, res, next) => {
-  
-  const id = req.params.id;
-  console.log(req.body)
-  Project.updateOne({
-    _id : id
-  }, {
-   //status:req.body.status
-   status:req.body.status
-    },function(err, data) {
-    if (err) {
-      console.log("submiterr"+err);
-    } else {
-      console.log(data);
-    }
-  })
-
-  res.status(201).json({
-    message: '项目提交成功!'
-  }).catch(err => {
-    res.status(500).json({
-      message: "项目提交失败!"
-    });
-  });
-}
 

@@ -19,7 +19,7 @@ mongoose.connect("mongodb://localhost:27017/project",{useNewUrlParser:true,useUn
   });
 
 
-
+  app.use(express.static('static'))
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }))

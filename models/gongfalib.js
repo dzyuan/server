@@ -11,11 +11,11 @@ const gongfalibSchema = mongoose.Schema({
     require: true
   },
   department: {
-    type: Array,
+    type: String,
     require: true
   },
   writers: {
-    type: Array,
+    type: String,
     require: true
   },
   
@@ -29,12 +29,12 @@ const gongfalibSchema = mongoose.Schema({
     require: true
   },
   class: {
-    type: String,
+    type: Array,
     require: true
   },
   
   attachment: {
-    type: Array,
+    type: String,
     require: true
   },
   createOn: {
@@ -56,4 +56,4 @@ const gongfalibSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("gongfalib", gongfalibSchema);
+module.exports = mongoose.model("Gongfalib", gongfalibSchema);

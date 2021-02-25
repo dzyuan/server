@@ -1,24 +1,21 @@
 const express = require("express");
 const checkAuth = require("../middleware/check-auth")
 const router = express.Router();
-const GongfaLibController = require("../controllers/gongfalibs")
+const GongfalibController = require("../controllers/gongfalibs")
 
 
 
-router.post("", checkAuth, GongfaLibController.createGongfaLib);
+router.post("", checkAuth, GongfalibController.createGongfalib);
 
-router.get("/:id", GongfaLibController.getProject);
+router.get("/:id", GongfalibController.getGongfalib);
 
-router.put("/:id", checkAuth, GongfaLibController.updateProject);
+router.put("/:id", checkAuth, GongfalibController.updateGongfalib);
 
-router.get("", GongfaLibController.getProjects);
+router.get("", GongfalibController.getGongfalibs);
 
-router.delete("/:id", checkAuth, GongfaLibController.deleteProject)
-
-router.post("/comment/:id", GongfaLibController.createComment);
+router.delete("/:id", checkAuth, GongfalibController.deleteGongfalib)
 
 
-router.post("/submit/:id", checkAuth, GongfaLibController.submitProject);
 
 
 module.exports = router;
