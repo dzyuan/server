@@ -20,7 +20,7 @@ const gongfalibSchema = mongoose.Schema({
   },
   
   techField: {
-    type: Array,
+    type: String,
     require: true
   },
   
@@ -29,7 +29,7 @@ const gongfalibSchema = mongoose.Schema({
     require: true
   },
   class: {
-    type: Array,
+    type: String,
     require: true
   },
   
