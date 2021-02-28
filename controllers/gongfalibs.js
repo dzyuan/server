@@ -81,9 +81,7 @@ exports.updateGongfalib = (req, res, next) => {
     techField: req.body.techField, 
     attachment:req.body.attachment,
     class: req.body.class,
-    summary: req.body.summary,
-    createOn: new Date(),
-    creator: req.userData.userId,
+    summary: req.body.summary, 
     modifyOn: new Date(),
     
   })
