@@ -11,14 +11,10 @@ const newsSchema = mongoose.Schema({
     require: true
   },
   
-  writer: {
+  author: {
     type: String,
     require: true
   },
-  
- 
-  
-  
   
   attachment: {
     type: String,
@@ -43,4 +39,4 @@ const newsSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model("news", gongfalibSchema);
+module.exports = mongoose.model("news", newsSchema);
